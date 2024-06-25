@@ -79,6 +79,7 @@ class User {
 			$this->attemptLog($username, 'good');
       $_SESSION['auth'] = 1;
 			$_SESSION['username'] = ucwords($username);
+      $_SESSION['userid'] = $rows['userid'];
 			unset($_SESSION['failedAuth']);
 			header('Location: /home');
 			die;
