@@ -13,6 +13,7 @@
     foreach ($data['reminders'] as $reminder) {
       echo "<p>" . $reminder['subject']. ' <a href="/reminder/update">update</a> <a href="/reminder/delete"> delete</a></p>';
       // Create model functions and functions in controllers. Timestamp, check off as completed
+      //Form, looks like user signup, takes in subject, button that says create, added to reminders table and automatically add user_id.
     } 
   
   ?>

@@ -19,8 +19,8 @@ class Reminders extends Controller {
         header('Location: /reminders');
       }
       $this->view('reminders/create');
-      //Form, looks like user signup, takes in subject, button that says create, added to reminders table and automatically add user_id, 
     }
+  
       public function update($id) {
         $reminder = $this->model('Reminder');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -28,12 +28,18 @@ class Reminders extends Controller {
           $reminder->update_reminder($id, $subject);
           header('Location: /reminders');
         }
-        $reminder_view = $reminder->get_all_reminders($id)[0];
-        $this->view('reminders/update', ['reminder_view' => $reminder_view]);
+        $this->view('reminders/update', ['id' => $id]);
       }
+  
       public function delete($id) {
         $reminder = $this->model('Reminder');
         $reminder->delete_reminder($id);
+        header('Location: /reminders');
+      }
+
+      public function completion($id) {
+        $reminder = $this->model('Reminder');
+        $reminder->completion($id);
         header('Location: /reminders');
       }
 }
