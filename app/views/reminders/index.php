@@ -2,7 +2,7 @@
 <div class="container">
   <div class="page-header" id="banner">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 text-center">
         <h1>Reminders</h1>
         <p> <a href="/reminders/create" class="btn btn-dark">Create a new reminder </a></p>
         <?php if (!empty($data['reminders'])): ?>
