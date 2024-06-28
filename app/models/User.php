@@ -79,7 +79,7 @@ class User {
 			$this->attemptLog($username, 'good');
       $_SESSION['auth'] = 1;
 			$_SESSION['username'] = ucwords($username);
-      $_SESSION['userid'] = $rows['userid'];
+      $_SESSION['user_id'] = $rows['id'];
 			unset($_SESSION['failedAuth']);
 			header('Location: /home');
 			die;
@@ -101,9 +101,9 @@ class User {
       // Connect to database.
       $db = db_connect();
       $statement = $db->prepare("select id from users where username = :username");
-      $statement->bindValue(':username', $username, PDO::PARAM_STR);
+      $statement->bindValue('username', $username, PDO::PARAM_STR);
       $statement->execute();
       $rows = $statement->fetch(PDO::FETCH_ASSOC);
-      return $rows ? $rows['id'] : NULL;
+      return $rows['id'];
     }
 }

@@ -16,21 +16,19 @@
             </tr>
           </thead>
           <tbody>
+<!-- Do a loop and display each reminder in a list. Use a table.-->
             <?php foreach ($data['reminders'] as $reminder): ?>
               <tr>
                 <td><?=htmlspecialchars($reminder['subject'])?></td>
                 <td><?= $reminder['completed'] ? 'Yes' : 'No'?></td>
                 <td><?=htmlspecialchars($reminder['created_at'])?></td>
                 <td>
+<!-- Show reminder and have three action buttons beside it. -->
                   <a href="/reminders/completion/<?=$reminder['id']?>" class="btn btn-sm <?=$reminder['completed'] ? 'btn-warning' : 'btn-success'?>"><?=$reminder['completed'] ? 'Incomplete' : 'Complete'?></a>
-                  <a href="/reminders/update/<?=$reminder['id']?>" class="btn btn-sm btn-black">Update</a>
+                  <a href="/reminders/update/<?=$reminder['id']?>" class="btn btn-sm btn-primary">Update</a>
                   <a href="/reminders/delete/<?=$reminder['id']?>" class="btn btn-sm btn-danger">Delete</a>
                 </td>
               </tr>
-                <!-- // echo "<p>" . $reminder['subject']. ' <a href="/reminder/update">update</a> <a href="/reminder/delete"> delete</a></p>';
-                // Create model functions and functions in controllers. Timestamp, check off as completed
-                //Form, looks like user signup, takes in subject, button that says create, added to reminders table and automatically add user_id.
-                -->
             <?php endforeach; ?>
           </tbody>
         </table>
@@ -40,7 +38,4 @@
       </div>
     </div>
 </div>
-  
-  <?php // Do a loop and display each reminder in a list. Use a table> ?>
-  <?php // Show reminder and have two links beside it ?>
   <?php require_once 'app/views/templates/footer.php' ?>

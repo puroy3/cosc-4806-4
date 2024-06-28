@@ -6,7 +6,7 @@ class Login extends Controller {
 	    $this->view('login/index');
     }
     
-    public function verify(){
+    public function verify() {
 			$username = $_REQUEST['username'];
 			$password = $_REQUEST['password'];
 		
@@ -18,7 +18,7 @@ class Login extends Controller {
 				exit;
 			}
 			
-			if ($user->authenticate($username, $password)){
+			if ($user->authenticate($username, $password)) {
 				$_SESSION['auth'] = 1;
 				$_SESSION['username'] = $username;
 				$_SESSION['user_id'] = $user->getUserId($username);

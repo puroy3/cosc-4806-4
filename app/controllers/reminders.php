@@ -2,6 +2,13 @@
 
 class Reminders extends Controller {
 
+    public function __construct() {
+      if (!isset($_SESSION['auth'])) {
+        header('Location: /login');
+        exit;
+      }
+    }
+  
     public function index() {
       $reminder = $this->model('Reminder');
       //Keep user_id in a session variable. 
@@ -17,18 +24,28 @@ class Reminders extends Controller {
         $reminder = $this->model('Reminder');
         $reminder->create_reminder($user_id, $subject);
         header('Location: /reminders');
+        exit;
       }
       $this->view('reminders/create');
     }
   
       public function update($id) {
         $reminder = $this->model('Reminder');
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $subject = $_REQUEST['subject'];
-          $reminder->update_reminder($id, $subject);
-          header('Location: /reminders');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $subject = $_POST['subject'];
+          if ($reminder->update_reminder($id, $subject)) {
+            header('Location: /reminders');
+            exit;
+          }
         }
-        $this->view('reminders/update', ['id' => $id]);
+        $reminderData = $reminder->get_specific_reminder($id);
+        if ($reminderData) {
+          $this->view('reminders/update', ['reminderData' => $reminderData]);
+        }
+        else {
+          echo "No data for the reminder.";
+          exit;
+        }
       }
   
       public function delete($id) {
