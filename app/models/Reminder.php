@@ -8,8 +8,8 @@ class Reminder {
 
     public function get_all_reminders ($user_id) {
       $db = db_connect();
-      $statement = $db->prepare("select id, subject, created_at, completed from notes where user_id = :user_id and deleted = 0 order by created_at desc;");
-      $statement->execute();
+      $statement = $db->prepare("select id, subject, created_at, completed from notes where user_id = :user_id and deleted = 0 order by created_at desc");
+      $statement->execute([':user_id' => $user_id]);
       $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
       return $rows;
     }
@@ -33,7 +33,9 @@ class Reminder {
 
     public function create_reminder ($user_id, $subject) {
       $db = db_connect();
-      $statement = $db->prepare("insert into notes (user_id, subject, created_at) values (:user_id, :subject, current_timestamp())");
+      $statement = $db->prepare("insert into notes (user_id, subject, created_at) values (:user_id, :subject, NOW())");
+      $statement->bindParam(':user_id', $user_id);
+      $statement->bindParam(':subject', $subject);
       $statement->execute();
       $rows = $statement->rowCount();
       return $rows;

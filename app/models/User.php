@@ -97,4 +97,13 @@ class User {
     }
 
 }
+    public function getUserId($username) {
+      // Connect to database.
+      $db = db_connect();
+      $statement = $db->prepare("select id from users where username = :username");
+      $statement->bindValue(':username', $username, PDO::PARAM_STR);
+      $statement->execute();
+      $rows = $statement->fetch(PDO::FETCH_ASSOC);
+      return $rows ? $rows['id'] : NULL;
+    }
 }

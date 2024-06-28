@@ -19,6 +19,9 @@ class Login extends Controller {
 			}
 			
 			if ($user->authenticate($username, $password)){
+				$_SESSION['auth'] = 1;
+				$_SESSION['username'] = $username;
+				$_SESSION['user_id'] = $user->getUserId($username);
 				header('Location: /home');
 				exit;
 			}
